@@ -17,12 +17,17 @@ forest = RandomForestClassifier(n_estimators=500,random_state=1)
 
 n_space = range(1,21)
 
+import time
+
 random_accu_score = []
 for n in n_space:
+    time_start = time.time()
     forest.n_estimators = n
     forest.fit(X_train, y_train)
     y_train_pred = forest.predict(X_train)
+    time_elapsed = (time.time() - time_start)
     random_accu_score.append(metrics.accuracy_score(y_train, y_train_pred))
+    print(time_elapsed)
     
 fig1 = plt.figure()
 plt.plot(n_space, random_accu_score, label='Random Forest Train Set')
